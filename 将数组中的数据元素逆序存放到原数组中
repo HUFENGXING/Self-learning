@@ -1,0 +1,70 @@
+#define _CRT_SECURE_NO_WARNINGS 1;
+#include <stdio.h>
+#include <iostream>
+using namespace std;
+
+
+
+void ab(int **a,int &n) {
+	printf("ready goto,n=%d\n",n);
+	for (int i = 0; i < n / 2; i++) {
+		int t = *(*a+i);
+		*(*a + i) = *(*a+n - i - 1);
+		*(*a + n - i - 1) = t;
+	}
+	for (int i = 0; i < n; i++) {
+		printf("%d", *(*a+i));
+	}
+	printf("\n");
+}
+void ab2(int **b, int &m) {
+	printf("ready2 goto\n");
+	int* c = (int*)malloc(sizeof(int)*m);
+	if (c == NULL) {
+		printf("c malloc失败");
+	}
+	for (int i = 0; i < m; i++) {
+		*(c+i) = *(*b+m - i - 1);
+	}
+	for (int i = 0; i < m; i++) { 
+		*(*b+i) = *(c+i);
+	}
+	free(c);
+	c = NULL;
+	for (int i = 0; i < m; i++) {
+		printf("%d", *(*b + i));
+	}
+}
+void arr( int **a,int &n) {
+	scanf("%d", &n);
+	printf("n----==%d\n", n);
+    *a= (int*)malloc(sizeof(int) * n);
+	if (*a== NULL) {
+		printf("again lose");
+	} 
+	for (int i = 0; i < n; i++) {
+		*(*a+i) = i;
+		printf("%d", *(*a+i));
+	}
+	printf("\n");
+}
+
+int main()
+{	
+	int n = 0;
+	int m = 0;
+	int* a = NULL;
+	int* b = NULL;
+	arr(&a, n);
+	ab(&a, n);
+	arr(&b,m);
+	ab2(&b,m);
+	free(a);
+	free(b);
+	a = NULL;
+	b = NULL;
+
+
+	return 0;
+
+}
